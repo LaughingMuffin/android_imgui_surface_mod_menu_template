@@ -1,6 +1,8 @@
 # ImGui Surface - Mod Menu - Template
 
-___
+## Build & Run
+- [Android Studio](https://developer.android.com/studio)
+- [Intellij Idea Free / Ultimate](https://www.jetbrains.com/idea/)
 
 ## Features
 - [x] Simple app with GLSurfaceView
@@ -26,7 +28,7 @@ ___
 
 ## Result
 
-![](http://i.imgur.com/hd3nxBg.gif)
+[//]: # (![]&#40;http://i.imgur.com/hd3nxBg.gif&#41;)
 
 ## Credits
 
