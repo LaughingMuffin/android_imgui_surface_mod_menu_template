@@ -1,4 +1,4 @@
-# ImGui Surface - Mod Menu - Template
+# Android ImGui Surface - Mod Menu - Template
 
 ## Build & Run
 - [Android Studio](https://developer.android.com/studio)
@@ -28,7 +28,7 @@
 
 ## Result
 
-[//]: # (![]&#40;http://i.imgur.com/hd3nxBg.gif&#41;)
+![](http://i.imgur.com/hd3nxBg.gif)
 
 ## Credits
 
@@ -37,5 +37,5 @@ Obfuscator - [Obfuscate by adamyaxley](https://github.com/adamyaxley)<br>
 xDL - [xDL by hexhacking](https://github.com/hexhacking/xDL)<br>
 Dobby - [Dobby by jmpews](https://github.com/jmpews/Dobby)<br>
 ___
-###### ImGui Surface - Mod Menu - Template is licensed under the MIT License, see [LICENSE](license.txt) for more information.
+###### Android ImGui Surface - Mod Menu - Template is licensed under the MIT License, see [LICENSE](license.txt) for more information.
 ___
