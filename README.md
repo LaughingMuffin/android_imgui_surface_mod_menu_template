@@ -8,7 +8,7 @@
 - [x] Simple app with GLSurfaceView
 - [x] Render ImGUI window
 - [x] Universal touch
-- [ ] Basic widgets example
+- [x] Basic widgets example
 - [ ] More Styles
 - [ ] Save config to file
 
@@ -28,7 +28,7 @@
 
 ## Result
 
-![](http://i.imgur.com/hd3nxBg.gif)
+[//]: # (![]&#40;http://i.imgur.com/hd3nxBg.gif&#41;)
 
 ## Credits
 
@@ -36,6 +36,8 @@ ImGUI - [ImGUI Official GitHub](https://github.com/ocornut/imgui)<br>
 Obfuscator - [Obfuscate by adamyaxley](https://github.com/adamyaxley)<br>
 xDL - [xDL by hexhacking](https://github.com/hexhacking/xDL)<br>
 Dobby - [Dobby by jmpews](https://github.com/jmpews/Dobby)<br>
+___
+Color Picker - [Online Color Picker](https://rgbcolorpicker.com/0-1)<br>
 ___
 ###### Android ImGui Surface - Mod Menu - Template is licensed under the MIT License, see [LICENSE](license.txt) for more information.
 ___
