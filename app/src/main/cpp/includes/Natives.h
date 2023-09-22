@@ -5,6 +5,7 @@
 #pragma once
 //======================================================================================================================
 #include <Globals.h>
+#include <Menu.h>
 //======================================================================================================================
 void native_Init (JNIEnv *env, jclass clazz, jobject surface) {
 
@@ -41,6 +42,7 @@ void native_Init (JNIEnv *env, jclass clazz, jobject surface) {
 //======================================================================================================================
 void native_SurfaceChanged (JNIEnv *env, jclass clazz, jobject gl, jint width, jint height) {
 
+    // get some info to setup menu
     glWidth = width;
     glHeight = height;
     Debug_Log("W - %d | H - %d", width, height);
@@ -58,16 +60,30 @@ void native_Tick(JNIEnv *env, jclass clazz, jobject thiz) {
     ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
     ImGui::NewFrame();
 
-    ImGui::SetNextWindowPos(ImVec2(glWidth * 0.05f, glHeight * 0.10f), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize({glWidth * 0.95f, 0.0f});
+    // setup win initial pos coords and size
+    MenuVars.winWidth = glWidth * 0.95f;
+    MenuVars.winHeight = 0.0f;
+    MenuVars.winPosWidth = glWidth * 0.05f;
+    MenuVars.winPosHeight = glHeight * 0.10f;
+
+    // init the win
+    ImGui::SetNextWindowPos(ImVec2(MenuVars.winPosWidth, MenuVars.winPosHeight), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize({MenuVars.winWidth, MenuVars.winHeight});
+
+    // sets win collapsed, once - second param is kinda useless but it's a good example, you could make use of that kind
+    // of params for other kind of behaviours :)
     ImGui::SetNextWindowCollapsed(true, ImGuiCond_::ImGuiCond_Once);
 
+    // this is the top bar of the menu, collapsed or not
     ImGui::Begin(OBFUSCATE("@androidrepublic.org - ImGUI Surface Template"));
 
-    ImGui::Text(OBFUSCATE("Hello :)"));
+    // draw a menu column based
+    DrawColumnsDrivenMenu();
 
+    // setup style
     ImGui::StyleColorsDark();
 
+    // that's it, now close some stuff and then render it :)
     ImGui::End();
 
     ImGui::Render();
@@ -80,6 +96,7 @@ void native_Shutdown (JNIEnv *env, jclass clazz) {
     if (!g_Initialized)
         return;
 
+    // shut down everything
     g_Initialized = false;
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplAndroid_Shutdown();
