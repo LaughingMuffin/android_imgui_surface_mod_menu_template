@@ -322,11 +322,15 @@ namespace ImGui
     IMGUI_API void          StyleColorsLight(ImGuiStyle* dst = NULL);   // best used with borders and a custom, thicker font
     IMGUI_API void          StyleColorsClassic(ImGuiStyle* dst = NULL); // classic imgui style
 
-    // Custom Styles
-    IMGUI_API void          StyleColorsGreenBlue(ImGuiStyle* dst = NULL); // https://github.com/ocornut/imgui/issues/707#issuecomment-760219522
-    IMGUI_API void          StyleColorsRedDark(ImGuiStyle* dst = NULL); // https://github.com/ocornut/imgui/issues/707#issuecomment-760220280
-    IMGUI_API void          StyleColorsDeepDark(ImGuiStyle* dst = NULL); // https://github.com/ocornut/imgui/issues/707#issuecomment-917151020
-    IMGUI_API void          StyleColorsGoldenDark(ImGuiStyle* dst = NULL); // https://github.com/Flix01/imgui/blob/imgui_with_addons/addons/imguistyleserializer/imguistyleserializer.cpp
+    // Custom Styles - https://github.com/ocornut/imgui/issues/707
+    IMGUI_API void          StyleColorsGreenBlue(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsRedDark(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsDeepDark(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsGoldenDark(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsDarkGray(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsGray(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsSoftDarkRed(ImGuiStyle* dst = NULL);
+    IMGUI_API void          StyleColorsSteamHalfLife(ImGuiStyle* dst = NULL);
 
     // Windows
     // - Begin() = push window to the stack and start appending to it. End() = pop window from the stack.

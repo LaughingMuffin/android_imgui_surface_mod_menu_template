@@ -81,7 +81,41 @@ void native_Tick(JNIEnv *env, jclass clazz, jobject thiz) {
     DrawColumnsDrivenMenu();
 
     // setup style
-    ImGui::StyleColorsDark();
+    switch (MenuVars.style_selection) {
+        case 0:
+            ImGui::StyleColorsClassic();
+            break;
+        case 1:
+            ImGui::StyleColorsLight();
+            break;
+        case 2:
+            ImGui::StyleColorsDark();
+            break;
+        case 3:
+            ImGui::StyleColorsGreenBlue();
+            break;
+        case 4:
+            ImGui::StyleColorsRedDark();
+            break;
+        case 5:
+            ImGui::StyleColorsDeepDark();
+            break;
+        case 6:
+            ImGui::StyleColorsGoldenDark();
+            break;
+        case 7:
+            ImGui::StyleColorsDarkGray();
+            break;
+        case 8:
+            ImGui::StyleColorsGray();
+            break;
+        case 9:
+            ImGui::StyleColorsSoftDarkRed();
+            break;
+        case 10:
+            ImGui::StyleColorsSteamHalfLife();
+            break;
+    }
 
     // that's it, now close some stuff and then render it :)
     ImGui::End();
