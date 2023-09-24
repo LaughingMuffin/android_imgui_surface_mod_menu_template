@@ -7,6 +7,20 @@
 #include <Globals.h>
 #include <DrawUtils.h>
 //======================================================================================================================
+const char* style_list[11] = {
+                                OBFUSCATE("Classic"),
+                                OBFUSCATE("Light"),
+                                OBFUSCATE("Dark Blue"),
+                                OBFUSCATE("Green & Blue"),
+                                OBFUSCATE("Dark Red"),
+                                OBFUSCATE("Deep Dark"),
+                                OBFUSCATE("Golden Black"),
+                                OBFUSCATE("Dark Grey"),
+                                OBFUSCATE("Grey"),
+                                OBFUSCATE("Soft Dark Red"),
+                                OBFUSCATE("Steam Half Life")
+                            };
+//======================================================================================================================
 struct MenuVariables {
     float winWidth = 0.0f;
     float winHeight = 0.0f;
@@ -16,6 +30,7 @@ struct MenuVariables {
     ImVec4 color_red = ImVec4(1.0f, 0.0f, 0.0f, 1.00f); // RED - rgb01(1, 0, 0) | #ff0000
     ImVec4 color_purple = ImVec4(1.0f, 0.0f, 1.0f, 1.00f); // PURPLE - rgb01(1, 0, 1) | #ff00ff
     ImVec4 color_green = ImVec4(0.0f, 1.0f, 0.0f, 1.0f); // GREEN - rgb01(0, 1, 0) | #00ff00
+    int style_selection = 0;
 } MenuVars;
 //======================================================================================================================
 struct CheatVariables {
@@ -190,8 +205,10 @@ void DrawStyleEditor () {
     ImGui::Text(OBFUSCATE("Style Editor Tab!"));
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
-    ImGui::Text(OBFUSCATE("Coming soon . . ."));
-    ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
+    ImGui::Spacing();
+    ImGui::Text(OBFUSCATE("Default Style Picker"));
+    ImGui::Combo(OBFUSCATE("##Default Style Picker"), &MenuVars.style_selection, style_list, IM_ARRAYSIZE(style_list), 15);
+    ImGui::Spacing();
 
     // always END the item or you crash!!!
     ImGui::EndTabItem();
