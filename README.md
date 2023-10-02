@@ -10,7 +10,7 @@
 - [x] Universal touch
 - [x] Basic widgets example
 - [x] More Styles
-- [ ] Save config to file
+- [x] Save config to file
 
 ## How to add to any app
 - Build this project
