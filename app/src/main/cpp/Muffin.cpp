@@ -8,13 +8,11 @@
 //======================================================================================================================
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 
-    JNIEnv *_env;
-
-    if (vm->GetEnv(reinterpret_cast<void **>(&_env), JNI_VERSION_1_6) != JNI_OK) {
+    if (vm->GetEnv(reinterpret_cast<void **>(&global_env), JNI_VERSION_1_6) != JNI_OK) {
         return -1;
     }
 
-    if (registerNativeFunctions(_env) != 0) {
+    if (registerNativeFunctions(global_env) != 0) {
         return -1;
     }
 
@@ -32,6 +30,9 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
     }
     Debug_Log("| 1 | dl_close libinput");
     xdl_close(g_Input);
+
+    // setup path once
+    setupConfigFile();
 
     return JNI_VERSION_1_6;
 }

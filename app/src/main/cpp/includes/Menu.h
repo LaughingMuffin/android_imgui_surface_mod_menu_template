@@ -7,6 +7,8 @@
 #include <Globals.h>
 #include <DrawUtils.h>
 //======================================================================================================================
+using json = nlohmann::json;
+//======================================================================================================================
 const char* style_list[11] = {
                                 OBFUSCATE("Classic"),
                                 OBFUSCATE("Light"),
@@ -19,7 +21,48 @@ const char* style_list[11] = {
                                 OBFUSCATE("Grey"),
                                 OBFUSCATE("Soft Dark Red"),
                                 OBFUSCATE("Steam Half Life")
-                            };
+};
+//======================================================================================================================
+struct Variables {
+    char StylePath[128] = "";
+} Vars;
+//======================================================================================================================
+struct StyleVariables {
+    std::string name = OBFUSCATE("style.json");
+    int style_selection = 0;
+} StyleVars;
+// if you extend the number of vars remember to declare them here too
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StyleVariables, name, style_selection)
+//======================================================================================================================
+StyleVariables LoadStyles() {
+
+    // try open file
+    FILE *file = fopen(Vars.StylePath, OBFUSCATE("r"));
+    if (!file) {
+        // return default if not there
+        return StyleVars;
+    }
+
+    json j;
+
+    // try read file
+    try {
+        std::ifstream f(Vars.StylePath, std::ifstream::binary);
+        f >> j;
+        return j.get<StyleVariables>();
+    } catch (...) {
+        // return default if errors
+        return StyleVars;
+    }
+}
+//======================================================================================================================
+void SaveStyle(StyleVariables preset) {
+
+    //save or overwrite file
+    json j = preset;
+    std::ofstream o(Vars.StylePath);
+    o << std::setw(4) << j << std::endl;
+}
 //======================================================================================================================
 struct MenuVariables {
     float winWidth = 0.0f;
@@ -30,7 +73,6 @@ struct MenuVariables {
     ImVec4 color_red = ImVec4(1.0f, 0.0f, 0.0f, 1.00f); // RED - rgb01(1, 0, 0) | #ff0000
     ImVec4 color_purple = ImVec4(1.0f, 0.0f, 1.0f, 1.00f); // PURPLE - rgb01(1, 0, 1) | #ff00ff
     ImVec4 color_green = ImVec4(0.0f, 1.0f, 0.0f, 1.0f); // GREEN - rgb01(0, 1, 0) | #00ff00
-    int style_selection = 0;
 } MenuVars;
 //======================================================================================================================
 struct CheatVariables {
@@ -207,8 +249,12 @@ void DrawStyleEditor () {
 
     ImGui::Spacing();
     ImGui::Text(OBFUSCATE("Default Style Picker"));
-    ImGui::Combo(OBFUSCATE("##Default Style Picker"), &MenuVars.style_selection, style_list, IM_ARRAYSIZE(style_list), 15);
+    ImGui::Combo(OBFUSCATE("##Default Style Picker"), &StyleVars.style_selection, style_list, IM_ARRAYSIZE(style_list), 15);
     ImGui::Spacing();
+    if (ImGui::Button(OBFUSCATE("Save"), ImVec2(170, 50))) {
+        // save config
+        SaveStyle(StyleVars);
+    }
 
     // always END the item or you crash!!!
     ImGui::EndTabItem();

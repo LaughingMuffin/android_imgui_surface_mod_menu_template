@@ -10,7 +10,7 @@
 - [x] Universal touch
 - [x] Basic widgets example
 - [x] More Styles
-- [ ] Save config to file
+- [x] Save config to file
 
 ## How to add to any app
 - Build this project
@@ -30,7 +30,11 @@
 
 [//]: # (![]&#40;http://i.imgur.com/hd3nxBg.gif&#41;)
 [//]: # (https://github.com/LaughingMuffin/android_imgui_surface_mod_menu_template/assets/97317523/df9081f2-974b-4489-8755-0c3ddd1317aa)
+#### Preview - Widgets
 https://github.com/LaughingMuffin/android_imgui_surface_mod_menu_template/assets/97317523/8ff2ec8f-964b-4083-a5a5-bff7682c5869
+
+#### Preview - Save to File
+https://github.com/LaughingMuffin/android_imgui_surface_mod_menu_template/assets/97317523/7260bc61-3419-4f85-8228-da77f9e2ef61
 
 ## Credits
 
