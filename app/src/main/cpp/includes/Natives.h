@@ -7,6 +7,43 @@
 #include <Globals.h>
 #include <Menu.h>
 //======================================================================================================================
+static jobject getGlobalContext() {
+    jclass activityThread = global_env->FindClass(OBFUSCATE("android/app/ActivityThread"));
+    jmethodID currentActivityThread = global_env->GetStaticMethodID(activityThread, OBFUSCATE("currentActivityThread"), OBFUSCATE("()Landroid/app/ActivityThread;"));
+    jobject at = global_env->CallStaticObjectMethod(activityThread, currentActivityThread);
+
+    jmethodID getApplication = global_env->GetMethodID(activityThread, OBFUSCATE("getApplication"), OBFUSCATE("()Landroid/app/Application;"));
+    jobject context = global_env->CallObjectMethod(at, getApplication);
+    return context;
+}
+//======================================================================================================================
+void setupConfigFile() {
+
+    jobject context = getGlobalContext();
+    if(!context) {
+        Error_Log("I'm stupid and failed to get context apparently!");
+        exit(999);
+    }
+
+    // get context object class once
+    auto contextClass = global_env->FindClass(OBFUSCATE("android/content/Context"));
+
+    // get files dir absolute path
+    auto filesDirPtr = global_env->GetMethodID(contextClass, OBFUSCATE("getFilesDir"), OBFUSCATE("()Ljava/io/File;"));
+    auto filesDirObject = global_env->CallObjectMethod(context, filesDirPtr);
+    auto filesDirClass = global_env->GetObjectClass(filesDirObject);
+
+    auto getFilesDirAbsolutePathMethod = global_env->GetMethodID(filesDirClass, OBFUSCATE("getAbsolutePath"), OBFUSCATE("()Ljava/lang/String;"));
+
+    const char *filesDir = global_env->GetStringUTFChars((jstring) global_env->CallObjectMethod(filesDirObject, getFilesDirAbsolutePathMethod), 0);
+
+    strcat(Vars.StylePath, filesDir);
+    strcat(Vars.StylePath, OBFUSCATE("/"));
+    char *name_cstr = new char[StyleVars.name.length() + 1];
+    strcpy(name_cstr, StyleVars.name.c_str());
+    strcat(Vars.StylePath, name_cstr);
+}
+//======================================================================================================================
 void native_Init (JNIEnv *env, jclass clazz, jobject surface) {
 
     if (g_Initialized)
@@ -35,6 +72,9 @@ void native_Init (JNIEnv *env, jclass clazz, jobject surface) {
 
     font_cfg.SizePixels = 28;
     io->Fonts->AddFontDefault(&font_cfg);
+
+    // load config once
+    StyleVars = LoadStyles();
 
     g_Initialized = true;
 
@@ -81,7 +121,7 @@ void native_Tick(JNIEnv *env, jclass clazz, jobject thiz) {
     DrawColumnsDrivenMenu();
 
     // setup style
-    switch (MenuVars.style_selection) {
+    switch (StyleVars.style_selection) {
         case 0:
             ImGui::StyleColorsClassic();
             break;

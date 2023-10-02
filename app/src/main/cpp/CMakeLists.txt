@@ -16,6 +16,7 @@ set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${LINKER_FLAGS}")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes
                     ${CMAKE_CURRENT_SOURCE_DIR}/misc
+                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/json
                     ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby/include
                     ${CMAKE_CURRENT_SOURCE_DIR}/misc/imgui
                     ${CMAKE_CURRENT_SOURCE_DIR}/misc/xdl
