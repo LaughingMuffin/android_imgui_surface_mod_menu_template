@@ -24,7 +24,7 @@
 - [How to decompile / recompile APK](https://youtu.be/xWU5Tk3MizY)
 - [How to sign an APK](https://youtu.be/GwkQelv3cGk)
 - [How to load your own lib from smali](https://youtu.be/JKwPPwnVehw)
-- Full implementation video - coming soon.
+- [Full implementation video](https://www.youtube.com/watch?v=uT_DFRfullc)
 
 ## Result
 
