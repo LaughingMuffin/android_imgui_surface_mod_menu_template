@@ -9,18 +9,18 @@
 //======================================================================================================================
 using json = nlohmann::json;
 //======================================================================================================================
-const char* style_list[11] = {
-                                OBFUSCATE("Classic"),
-                                OBFUSCATE("Light"),
-                                OBFUSCATE("Dark Blue"),
-                                OBFUSCATE("Green & Blue"),
-                                OBFUSCATE("Dark Red"),
-                                OBFUSCATE("Deep Dark"),
-                                OBFUSCATE("Golden Black"),
-                                OBFUSCATE("Dark Grey"),
-                                OBFUSCATE("Grey"),
-                                OBFUSCATE("Soft Dark Red"),
-                                OBFUSCATE("Steam Half Life")
+const char *style_list[11] = {
+        OBFUSCATE("Classic"),
+        OBFUSCATE("Light"),
+        OBFUSCATE("Dark Blue"),
+        OBFUSCATE("Green & Blue"),
+        OBFUSCATE("Dark Red"),
+        OBFUSCATE("Deep Dark"),
+        OBFUSCATE("Golden Black"),
+        OBFUSCATE("Dark Grey"),
+        OBFUSCATE("Grey"),
+        OBFUSCATE("Soft Dark Red"),
+        OBFUSCATE("Steam Half Life")
 };
 //======================================================================================================================
 struct Variables {
@@ -33,6 +33,7 @@ struct StyleVariables {
 } StyleVars;
 // if you extend the number of vars remember to declare them here too
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(StyleVariables, name, style_selection)
+
 //======================================================================================================================
 StyleVariables LoadStyles() {
 
@@ -55,6 +56,7 @@ StyleVariables LoadStyles() {
         return StyleVars;
     }
 }
+
 //======================================================================================================================
 void SaveStyle(StyleVariables preset) {
 
@@ -63,13 +65,15 @@ void SaveStyle(StyleVariables preset) {
     std::ofstream o(Vars.StylePath);
     o << std::setw(4) << j << std::endl;
 }
+
 //======================================================================================================================
 struct MenuVariables {
     float winWidth = 0.0f;
     float winHeight = 0.0f;
     float winPosWidth = 0.0f;
     float winPosHeight = 0.0f;
-    ImVec4 textColor = ImVec4(0.990f, 0.0396f, 0.816f, 1.00f); // R G B + GAMMA | Using floats, check readme for picker
+    ImVec4 textColor = ImVec4(0.990f, 0.0396f, 0.816f,
+                              1.00f); // R G B + GAMMA | Using floats, check readme for picker
     ImVec4 color_red = ImVec4(1.0f, 0.0f, 0.0f, 1.00f); // RED - rgb01(1, 0, 0) | #ff0000
     ImVec4 color_purple = ImVec4(1.0f, 0.0f, 1.0f, 1.00f); // PURPLE - rgb01(1, 0, 1) | #ff00ff
     ImVec4 color_green = ImVec4(0.0f, 1.0f, 0.0f, 1.0f); // GREEN - rgb01(0, 1, 0) | #00ff00
@@ -86,21 +90,22 @@ struct CheatVariables {
     bool bool_draw_line = false;
     bool bool_draw_box = false;
 } CheatVars;
+
 //======================================================================================================================
-void HelpMarker(const char* desc) {
+void HelpMarker(const char *desc) {
     ImGui::TextDisabled(OBFUSCATE("(?)"));
-    if (ImGui::BeginItemTooltip())
-    {
+    if (ImGui::BeginItemTooltip()) {
         ImGui::PushTextWrapPos(ImGui::GetFontSize() * 30.0f);
         ImGui::TextUnformatted(desc);
         ImGui::PopTextWrapPos();
         ImGui::EndTooltip();
     }
 }
+
 //======================================================================================================================
-void DrawLeftColumn () {
+void DrawLeftColumn() {
     // set current column width
-    ImGui::SetColumnWidth(-1,400);
+    ImGui::SetColumnWidth(-1, 400);
 
     // very shitty separator, it applies to the entire window, be it horizontal or vertical, see better example below
     // you will notice the long line on top of the window, that's this
@@ -122,7 +127,8 @@ void DrawLeftColumn () {
     ImGui::SeparatorText(OBFUSCATE("Separator"));
 
     // this is a formatted text, it will go to next line wen reaching "EOL"
-    ImGui::TextWrapped(OBFUSCATE("Longer text that will go to next line when reaching the end of the column!"));
+    ImGui::TextWrapped(OBFUSCATE(
+                               "Longer text that will go to next line when reaching the end of the column!"));
 
     ImGui::SeparatorText(OBFUSCATE("##LEFT_COLUMN_TOP_SEPARATOR_2"));
 
@@ -146,8 +152,9 @@ void DrawLeftColumn () {
 
     ImGui::SeparatorText(OBFUSCATE("##LEFT_COLUMN_TOP_SEPARATOR_5"));
 }
+
 //======================================================================================================================
-void DrawCheats () {
+void DrawCheats() {
 
     // gives some space btw previous element and next one
     ImGui::Spacing();
@@ -156,18 +163,24 @@ void DrawCheats () {
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     // make your list of items
-    const char* items_combo[] = { "AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIIIIII", "JJJJ", "KKKKKKK" };
+    const char *items_combo[] = {"AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH",
+                                 "IIIIIII", "JJJJ", "KKKKKKK"};
     static int item_combo_current = 0;
-    ImGui::Text("Combo: "); ImGui::SameLine(); ImGui::Text("%s", items_combo[item_combo_current]);
+    ImGui::Text("Combo: ");
+    ImGui::SameLine();
+    ImGui::Text("%s", items_combo[item_combo_current]);
 
     // pass the list, size and current selection pointer reference
     ImGui::Combo("##_my_combo", &item_combo_current, items_combo, IM_ARRAYSIZE(items_combo));
     ImGui::SeparatorText("##SEP_MID_1");
 
     // same concept here just different widget :)
-    const char* items_list[] = { "Apple", "Banana", "Cherry", "Kiwi", "Mango", "Orange", "Pineapple", "Strawberry", "Watermelon" };
+    const char *items_list[] = {"Apple", "Banana", "Cherry", "Kiwi", "Mango", "Orange", "Pineapple",
+                                "Strawberry", "Watermelon"};
     static int item_list_current = 1;
-    ImGui::Text("List: "); ImGui::SameLine(); ImGui::Text("%s", items_list[item_list_current]);
+    ImGui::Text("List: ");
+    ImGui::SameLine();
+    ImGui::Text("%s", items_list[item_list_current]);
     ImGui::ListBox("##_my_list", &item_list_current, items_list, IM_ARRAYSIZE(items_list), 5);
     ImGui::SeparatorText("##SEP_MID_1");
 
@@ -178,8 +191,9 @@ void DrawCheats () {
     // always END the item or you crash!!!
     ImGui::EndTabItem();
 }
+
 //======================================================================================================================
-void DrawMore () {
+void DrawMore() {
     ImGui::Spacing();
     ImGui::Spacing();
     ImGui::Text(OBFUSCATE("More Tab!"));
@@ -187,25 +201,31 @@ void DrawMore () {
 
     ImGui::TextColored(MenuVars.textColor, "Slider with INTEGERS - 1 to 100");
     ImGui::SliderInt("##_dmg", &CheatVars.damageMultiplier, 1, 100);
-    ImGui::SameLine(); HelpMarker("Slider from 1 to 100");
-    ImGui::SameLine(); ImGui::Text("§ %d", CheatVars.damageMultiplier);
+    ImGui::SameLine();
+    HelpMarker("Slider from 1 to 100");
+    ImGui::SameLine();
+    ImGui::Text("§ %d", CheatVars.damageMultiplier);
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     ImGui::TextColored(MenuVars.textColor, "Slider with FLOATS - 1.0 to 10.0");
     ImGui::SliderFloat("##_dmg_f", &CheatVars.damageMultiplierF, 1.0f, 10.0f, "%.1f");
-    ImGui::SameLine(); HelpMarker("Slider from 1.0 to 10.0");
-    ImGui::SameLine(); ImGui::Text("§ %f", CheatVars.damageMultiplierF);
+    ImGui::SameLine();
+    HelpMarker("Slider from 1.0 to 10.0");
+    ImGui::SameLine();
+    ImGui::Text("§ %f", CheatVars.damageMultiplierF);
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     ImGui::Text("Drag INT, capped 0 - 100");
-    ImGui::DragInt("##drag int 0..100_", &CheatVars.drag_B, 1, 0, 100, "%d%", ImGuiSliderFlags_AlwaysClamp);
+    ImGui::DragInt("##drag int 0..100_", &CheatVars.drag_B, 1, 0, 100, "%d%",
+                   ImGuiSliderFlags_AlwaysClamp);
     ImGui::SeparatorText("##SEP_MID_1");
 
     // always END the item or you crash!!!
     ImGui::EndTabItem();
 }
+
 //======================================================================================================================
-void DrawEvenMore () {
+void DrawEvenMore() {
     ImGui::Spacing();
     ImGui::Spacing();
     ImGui::Text(OBFUSCATE("Even More Tab!"));
@@ -213,22 +233,29 @@ void DrawEvenMore () {
 
     // simple checkbox
     ImGui::Checkbox("Check me nii-san!", &CheatVars.bool_checkbox_A);
-    ImGui::SameLine(); HelpMarker("Onii-san!");
+    ImGui::SameLine();
+    HelpMarker("Onii-san!");
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     // simple radio buttons
-    ImGui::RadioButton("Offline!", &CheatVars.int_radio_A, 0); ImGui::SameLine();
-    ImGui::RadioButton("On-AIR!", &CheatVars.int_radio_A, 1); ImGui::SameLine();
-    ImGui::SameLine(); HelpMarker("Kimochi!");
+    ImGui::RadioButton("Offline!", &CheatVars.int_radio_A, 0);
+    ImGui::SameLine();
+    ImGui::RadioButton("On-AIR!", &CheatVars.int_radio_A, 1);
+    ImGui::SameLine();
+    ImGui::SameLine();
+    HelpMarker("Kimochi!");
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     // buttons
-    ImGui::Button("I do nothing!"); ImGui::SameLine();
+    ImGui::Button("I do nothing!");
+    ImGui::SameLine();
     if (ImGui::Button("I do math")) {
         CheatVars.int_button_math++;
     }
-    ImGui::SameLine(); HelpMarker("Tap to ++!");
-    ImGui::SameLine(); ImGui::Text("Counter is: %d", CheatVars.int_button_math);
+    ImGui::SameLine();
+    HelpMarker("Tap to ++!");
+    ImGui::SameLine();
+    ImGui::Text("Counter is: %d", CheatVars.int_button_math);
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_1"));
 
     // ESP Control via simple checkboxes
@@ -240,8 +267,9 @@ void DrawEvenMore () {
     // always END the item or you crash!!!
     ImGui::EndTabItem();
 }
+
 //======================================================================================================================
-void DrawStyleEditor () {
+void DrawStyleEditor() {
     ImGui::Spacing();
     ImGui::Spacing();
     ImGui::Text(OBFUSCATE("Style Editor Tab!"));
@@ -249,7 +277,8 @@ void DrawStyleEditor () {
 
     ImGui::Spacing();
     ImGui::Text(OBFUSCATE("Default Style Picker"));
-    ImGui::Combo(OBFUSCATE("##Default Style Picker"), &StyleVars.style_selection, style_list, IM_ARRAYSIZE(style_list), 15);
+    ImGui::Combo(OBFUSCATE("##Default Style Picker"), &StyleVars.style_selection, style_list,
+                 IM_ARRAYSIZE(style_list), 15);
     ImGui::Spacing();
     if (ImGui::Button(OBFUSCATE("Save"), ImVec2(170, 50))) {
         // save config
@@ -259,8 +288,9 @@ void DrawStyleEditor () {
     // always END the item or you crash!!!
     ImGui::EndTabItem();
 }
+
 //======================================================================================================================
-void DrawOtherStuff () {
+void DrawOtherStuff() {
 
     ImGui::SeparatorText(OBFUSCATE("##SEP_MID_0"));
 
@@ -291,8 +321,9 @@ void DrawOtherStuff () {
         ImGui::EndTabBar();
     }
 }
+
 //======================================================================================================================
-void DrawEsp () {
+void DrawEsp() {
 
     // for making things simpler I only draw one thing per element
     // but usually you would have to loop and draw for each entity
@@ -303,7 +334,7 @@ void DrawEsp () {
         ** End coords as ImVec2
         ** Color as ImVec4
         */
-        DrawLine({0,0}, {250,550}, MenuVars.color_red);
+        DrawLine({0, 0}, {250, 550}, MenuVars.color_red);
 
         /*
         ** Coords as ImVec2
@@ -311,7 +342,7 @@ void DrawEsp () {
         ** Text as const char *
         ** Font size as float
         */
-        DrawText({252,500}, MenuVars.color_purple, "[X] Line from 0:0 to 250:550", 30.0f);
+        DrawText({252, 500}, MenuVars.color_purple, "[X] Line from 0:0 to 250:550", 30.0f);
     }
 
     if (CheatVars.bool_draw_box) {
@@ -319,8 +350,9 @@ void DrawEsp () {
         DrawText({350, 650}, MenuVars.color_red, "[X] Box from 250, 550 to 350, 650", 30.0f);
     }
 }
+
 //======================================================================================================================
-void DrawColumnsDrivenMenu () {
+void DrawColumnsDrivenMenu() {
 
     // setup how many columns you want
     ImGui::Columns(2);

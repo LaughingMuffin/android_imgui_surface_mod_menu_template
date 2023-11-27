@@ -15,30 +15,30 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${LINKER_FLAGS}")
 set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${LINKER_FLAGS}")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/json
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby/include
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/imgui
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/xdl
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby
-                    ${CMAKE_CURRENT_SOURCE_DIR}/misc/imgui/backends
-)
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/json
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/imgui
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/xdl
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby
+        ${CMAKE_CURRENT_SOURCE_DIR}/misc/imgui/backends
+        )
 
 add_library(imgui SHARED
-            Muffin.cpp
-            misc/imgui/imgui.cpp
-            misc/imgui/imgui_draw.cpp
-            misc/imgui/imgui_tables.cpp
-            misc/imgui/imgui_widgets.cpp
-            misc/imgui/backends/imgui_impl_android.cpp
-            misc/imgui/backends/imgui_impl_opengl3.cpp
-            misc/xdl/xdl.c
-            misc/xdl/xdl_iterate.c
-            misc/xdl/xdl_linker.c
-            misc/xdl/xdl_lzma.c
-            misc/xdl/xdl_util.c
-)
+        Muffin.cpp
+        misc/imgui/imgui.cpp
+        misc/imgui/imgui_draw.cpp
+        misc/imgui/imgui_tables.cpp
+        misc/imgui/imgui_widgets.cpp
+        misc/imgui/backends/imgui_impl_android.cpp
+        misc/imgui/backends/imgui_impl_opengl3.cpp
+        misc/xdl/xdl.c
+        misc/xdl/xdl_iterate.c
+        misc/xdl/xdl_linker.c
+        misc/xdl/xdl_lzma.c
+        misc/xdl/xdl_util.c
+        )
 
 set(DOBBY_LIB ${CMAKE_CURRENT_SOURCE_DIR}/misc/dobby/${CMAKE_ANDROID_ARCH_ABI}/libdobby.a)
 
-target_link_libraries( imgui android EGL GLESv3 log ${DOBBY_LIB} )
+target_link_libraries(imgui android EGL GLESv3 log ${DOBBY_LIB})

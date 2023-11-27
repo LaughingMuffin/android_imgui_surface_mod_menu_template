@@ -2,7 +2,9 @@ package org.muffin.imgui;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.muffin.imgui.databinding.ActivityMainBinding;
 import org.muffin.imgui.muffin.Muffin;
 
