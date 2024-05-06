@@ -128,7 +128,7 @@ void native_Tick(JNIEnv *env, jclass clazz, jobject thiz) {
     ImGui::SetNextWindowCollapsed(true, ImGuiCond_::ImGuiCond_Once);
 
     // this is the top bar of the menu, collapsed or not
-    ImGui::Begin(OBFUSCATE("@androidrepublic.org - ImGUI Surface Template"));
+    ImGui::Begin(OBFUSCATE("@github.com/LaughingMuffin - ImGUI Surface Template"));
 
     // draw a menu column based
     DrawColumnsDrivenMenu();

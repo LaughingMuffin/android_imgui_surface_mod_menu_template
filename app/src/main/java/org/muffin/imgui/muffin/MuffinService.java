@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+
 import androidx.annotation.Nullable;
 
 public class MuffinService extends Service {
@@ -62,6 +63,7 @@ public class MuffinService extends Service {
         });
     }
 
+    @Override
     public int onStartCommand(Intent intent, int i, int i2) {
         return START_NOT_STICKY;
     }
@@ -72,11 +74,13 @@ public class MuffinService extends Service {
         return runningAppProcessInfo.importance != 100;
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         windowManager.removeView(muffinSurface);
     }
 
+    @Override
     public void onTaskRemoved(Intent intent) {
         super.onTaskRemoved(intent);
         try {
