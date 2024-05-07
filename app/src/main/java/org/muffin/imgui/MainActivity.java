@@ -5,6 +5,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import org.muffin.imgui.databinding.ActivityMainBinding;
 import org.muffin.imgui.muffin.Muffin;
 
@@ -22,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = binding.sampleText;
         tv.setText(stringFromJNI());
+
+        MobileAds.initialize(this, initializationStatus -> {
+        });
     }
 
     /**
