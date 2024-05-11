@@ -2,6 +2,8 @@ package org.muffin.imgui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
         if (googleMobileAdsConsentManager.canRequestAds()) {
             initializeMobileAdsSdk();
         }
-        // this make a 15 seconds timer and refresh hahahahahha
-//        refresh.setOnClickListener(unusedView -> {
-//            if (googleMobileAdsConsentManager.canRequestAds()) {
-//                refreshAd();
-//            }
-//        });
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (googleMobileAdsConsentManager.canRequestAds()) {
+                refreshAd();
+            }
+        }, 31000);
     }
 
     @Override
