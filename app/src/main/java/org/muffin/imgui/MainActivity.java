@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         Muffin.Start(this);
 
-        new RequestConfiguration.Builder().setTestDeviceIds(Collections.singletonList("E4DF0F90EAF42074B2E397B88B268745"));
-
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
