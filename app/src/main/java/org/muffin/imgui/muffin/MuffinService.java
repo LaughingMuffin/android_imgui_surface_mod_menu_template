@@ -29,18 +29,12 @@ public class MuffinService extends Service {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        } else {
-            params.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
 
         params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
-        params.flags |= WindowManager.LayoutParams.FLAG_LAYOUT_ATTACHED_IN_DECOR;
         params.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
         params.format = PixelFormat.RGBA_8888;
 
@@ -57,7 +51,7 @@ public class MuffinService extends Service {
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             public void run() {
-                Thread();
+                myThread();
                 handler.postDelayed(this, 500);
             }
         });
@@ -85,13 +79,14 @@ public class MuffinService extends Service {
         super.onTaskRemoved(intent);
         try {
             Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+            throw new RuntimeException(interruptedException);
         }
         stopSelf();
     }
 
-    private void Thread() {
+    private void myThread() {
         if (isNotInGame()) {
             muffinSurface.setVisibility(View.INVISIBLE);
         } else {

@@ -6,4 +6,5 @@
     <string name="refresh_ad" translatable="false">Refresh Ad</string>
     <string name="start_muted" translatable="false">Start video ads muted</string>
     <string name="video_status" translatable="false">Video status: </string>
+    <string name="overlay_permission_is_required_in_order_to_show_mod_menu_restart_the_game_after_you_allow_permission">Overlay permission is required in order to show mod menu. Restart the game after you allow permission</string>
 </resources>

@@ -1,13 +1,12 @@
 package org.muffin.imgui.muffin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
-import android.widget.Toast;
 
 public class Muffin extends Activity {
 
@@ -16,18 +15,23 @@ public class Muffin extends Activity {
     }
 
     public Muffin(Context context) {
-        Start(context);
+        startMuffin(context);
     }
 
-    public static void Start(final Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
-            Toast.makeText(context.getApplicationContext(), "Overlay permission is required in order to show mod menu. Restart the game after you allow permission", Toast.LENGTH_LONG).show();
-            context.startActivity(new Intent("android.settings.action.MANAGE_OVERLAY_PERMISSION", Uri.parse("package:" + context.getPackageName())));
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> System.exit(1), 5000);
+    public static void startMuffin(final Context context) {
+        if (!Settings.canDrawOverlays(context)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("'Display over other apps' permission is mandatory to run this application.")
+                    .setTitle("Permission required")
+                    .setCancelable(false)
+                    .setPositiveButton("Open settings", (dialog, which) -> {
+                        context.startActivity(new Intent("android.settings.action.MANAGE_OVERLAY_PERMISSION", Uri.parse("package:" + context.getPackageName())));
+                        dialog.dismiss();
+                        System.exit(1);
+                    })
+                    .create().show();
         } else {
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> context.startService(new Intent(context, MuffinService.class)), 5000);
+            new Handler(context.getMainLooper()).postDelayed(() -> context.startService(new Intent(context, MuffinService.class)), 5000);
         }
     }
 

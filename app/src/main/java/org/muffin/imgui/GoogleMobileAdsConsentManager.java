@@ -86,14 +86,11 @@ public class GoogleMobileAdsConsentManager {
                 activity,
                 params,
                 () ->
+                        // Consent has been gathered.
                         UserMessagingPlatform.loadAndShowConsentFormIfRequired(
                                 activity,
-                                formError -> {
-                                    // Consent has been gathered.
-                                    onConsentGatheringCompleteListener.consentGatheringComplete(formError);
-                                }),
-                requestConsentError ->
-                        onConsentGatheringCompleteListener.consentGatheringComplete(requestConsentError)
+                                onConsentGatheringCompleteListener::consentGatheringComplete),
+                onConsentGatheringCompleteListener::consentGatheringComplete
         );
     }
 
